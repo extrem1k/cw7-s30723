@@ -9,7 +9,7 @@
         public DateTime DateTo { get; set; }
         public int MaxPeople { get; set; }
 
-        // Navigation properties
+       
         public ICollection<ClientTrip> ClientTrips { get; set; }
         public ICollection<CountryTrip> CountryTrips { get; set; }
     }
