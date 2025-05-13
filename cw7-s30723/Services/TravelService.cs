@@ -27,7 +27,7 @@ namespace TravelAgencyAPI.Services
             {
                 await connection.OpenAsync();
 
-                // Get trips with country information
+              
                 var query = @"
                     SELECT t.IdTrip, t.Name, t.Description, t.DateFrom, t.DateTo, t.MaxPeople, 
                            c.IdCountry, c.Name AS CountryName
@@ -78,10 +78,10 @@ namespace TravelAgencyAPI.Services
         {
             var clientTrips = new List<ClientTripDTO>();
 
-            // First check if the client exists
+            
             if (!await ClientExistsAsync(clientId))
             {
-                return null; // Client not found
+                return null; 
             }
 
             using (var connection = new SqlConnection(_connectionString))
@@ -128,7 +128,7 @@ namespace TravelAgencyAPI.Services
             {
                 await connection.OpenAsync();
 
-                // Check if client with same email already exists
+                
                 var checkQuery = "SELECT COUNT(*) FROM Client WHERE Email = @Email";
                 using (var checkCommand = new SqlCommand(checkQuery, connection))
                 {
@@ -170,26 +170,26 @@ namespace TravelAgencyAPI.Services
 
         public async Task<bool> RegisterClientForTripAsync(int clientId, int tripId)
         {
-            // Check if client exists
+          
             if (!await ClientExistsAsync(clientId))
             {
                 throw new InvalidOperationException("Client does not exist");
             }
 
-            // Check if trip exists and get max people
+           
             var tripDetails = await GetTripDetailsAsync(tripId);
             if (tripDetails == null)
             {
                 throw new InvalidOperationException("Trip does not exist");
             }
 
-            // Check if client is already registered for this trip
+           
             if (await IsClientRegisteredForTripAsync(clientId, tripId))
             {
                 throw new InvalidOperationException("Client is already registered for this trip");
             }
 
-            // Check if trip is not full
+          
             int currentRegisteredCount = await GetTripRegistrationCountAsync(tripId);
             if (currentRegisteredCount >= tripDetails.MaxPeople)
             {
@@ -206,7 +206,7 @@ namespace TravelAgencyAPI.Services
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    // Using the current date converted to int in the format YYYYMMDD
+                   
                     int registeredAt = int.Parse(DateTime.Now.ToString("yyyyMMdd"));
 
                     command.Parameters.AddWithValue("@IdClient", clientId);
@@ -221,7 +221,7 @@ namespace TravelAgencyAPI.Services
 
         public async Task<bool> UnregisterClientFromTripAsync(int clientId, int tripId)
         {
-            // Check if the registration exists
+          
             if (!await IsClientRegisteredForTripAsync(clientId, tripId))
             {
                 throw new InvalidOperationException("Client is not registered for this trip");
@@ -246,7 +246,7 @@ namespace TravelAgencyAPI.Services
             }
         }
 
-        // Helper methods
+    
         private async Task<bool> ClientExistsAsync(int clientId)
         {
             using (var connection = new SqlConnection(_connectionString))
