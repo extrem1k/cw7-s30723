@@ -20,10 +20,7 @@ namespace TravelAgencyAPI.Controllers
             _travelService = travelService ?? throw new ArgumentNullException(nameof(travelService));
         }
 
-        /// <summary>
-        /// Gets all available trips with their country information
-        /// </summary>
-        /// <returns>List of all trips with details</returns>
+      
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -36,7 +33,7 @@ namespace TravelAgencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                // In production, you would log this exception
+               
                 return StatusCode(StatusCodes.Status500InternalServerError, 
                     new { message = "An error occurred while retrieving trips", details = ex.Message });
             }
