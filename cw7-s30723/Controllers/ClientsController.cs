@@ -18,11 +18,7 @@ namespace TravelAgencyAPI.Controllers
             _travelService = travelService;
         }
 
-        /// <summary>
-        /// Creates a new client
-        /// </summary>
-        /// <param name="clientDto">Client details</param>
-        /// <returns>Created client with ID</returns>
+       
         [HttpPost]
         public async Task<IActionResult> CreateClient([FromBody] ClientDTO clientDto)
         {
@@ -48,11 +44,7 @@ namespace TravelAgencyAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets all trips for a specific client
-        /// </summary>
-        /// <param name="id">Client ID</param>
-        /// <returns>List of trips registered for the client</returns>
+      
         [HttpGet("{id}/trips")]
         public async Task<IActionResult> GetClientTrips(int id)
         {
@@ -74,18 +66,13 @@ namespace TravelAgencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                // In production, you would log this exception
+                
                 return StatusCode(StatusCodes.Status500InternalServerError, 
                     new { message = "An error occurred while retrieving client trips", details = ex.Message });
             }
         }
 
-        /// <summary>
-        /// Registers a client for a trip
-        /// </summary>
-        /// <param name="id">Client ID</param>
-        /// <param name="tripId">Trip ID</param>
-        /// <returns>Status of the registration</returns>
+       
         [HttpPut("{id}/trips/{tripId}")]
         public async Task<IActionResult> RegisterClientForTrip(int id, int tripId)
         {
@@ -100,18 +87,13 @@ namespace TravelAgencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                // In production, you would log this exception
+               
                 return StatusCode(StatusCodes.Status500InternalServerError, 
                     new { message = "An error occurred while registering client for trip", details = ex.Message });
             }
         }
 
-        /// <summary>
-        /// Unregisters a client from a trip
-        /// </summary>
-        /// <param name="id">Client ID</param>
-        /// <param name="tripId">Trip ID</param>
-        /// <returns>Status of the unregistration</returns>
+      
         [HttpDelete("{id}/trips/{tripId}")]
         public async Task<IActionResult> UnregisterClientFromTrip(int id, int tripId)
         {
@@ -126,7 +108,6 @@ namespace TravelAgencyAPI.Controllers
             }
             catch (Exception ex)
             {
-                // In production, you would log this exception
                 return StatusCode(StatusCodes.Status500InternalServerError, 
                     new { message = "An error occurred while unregistering client from trip", details = ex.Message });
             }
