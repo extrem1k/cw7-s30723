@@ -11,7 +11,7 @@ namespace TravelAgencyAPI.Models
         public string Telephone { get; set; }
         public string Pesel { get; set; }
 
-        // Navigation properties
+       
         public ICollection<ClientTrip> ClientTrips { get; set; }
     }
 }
